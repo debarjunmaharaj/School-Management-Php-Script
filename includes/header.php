@@ -6,6 +6,7 @@ $settings = get_all_settings($conn);
 $pages_nav_result = mysqli_query($conn, "SELECT title, slug FROM pages LIMIT 5");
 
 $is_homepage = $is_homepage ?? false;
+$page_title = $page_title ?? ($settings['school_name'] ?? 'School');
 $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
 ?>
 <!DOCTYPE html>

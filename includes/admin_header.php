@@ -80,6 +80,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a href="manage_videos.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_videos.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
                         <i class="ri-video-line text-lg text-slate-400"></i> Video Gallery
                     </a>
+                    <a href="manage_research.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_research.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
+                        <i class="ri-book-open-line text-lg text-slate-400"></i> Research & Publications
+                    </a>
+                    <a href="manage_gallery.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_gallery.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
+                        <i class="ri-image-line text-lg text-slate-400"></i> Photo Gallery
+                    </a>
                 </div>
             </div>
 

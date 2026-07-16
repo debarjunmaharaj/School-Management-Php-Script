@@ -19,13 +19,37 @@ if (!isset($_GET['slug'])) {
 
 $slug = $_GET['slug'];
 
-// Prepare and execute a query to fetch the page content safely.
-$stmt = $conn->prepare("SELECT title, content FROM pages WHERE slug = ?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
-$result = $stmt->get_result();
-$page = $result->fetch_assoc();
-$stmt->close();
+if ($slug === 'notices') {
+    $page = [
+        'title' => 'General Notices',
+        'content' => ''
+    ];
+    // Fetch all notices from DB
+    $all_notices_result = mysqli_query($conn, "SELECT * FROM notices ORDER BY post_date DESC, id DESC");
+    $notices_html = '<div class="space-y-6">';
+    if ($all_notices_result && mysqli_num_rows($all_notices_result) > 0) {
+        while ($n = mysqli_fetch_assoc($all_notices_result)) {
+            $notices_html .= '
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-lg shadow-sm" style="margin-bottom: 20px;">
+                <span class="text-xs bg-red-800 text-white font-bold px-2 py-1 rounded" style="background-color:#8b0000; color:#fff; padding: 3px 8px; border-radius: 4px;">' . date('M d, Y', strtotime($n['post_date'])) . '</span>
+                <h3 class="text-lg font-bold text-slate-900 mt-2" style="margin-top: 10px; font-size: 1.25rem;">' . htmlspecialchars($n['title']) . '</h3>
+                <p class="text-sm text-slate-700 mt-2 leading-relaxed" style="margin-top: 8px;">' . nl2br(htmlspecialchars($n['content'])) . '</p>
+            </div>';
+        }
+    } else {
+        $notices_html .= '<p class="text-gray-500">No notices found.</p>';
+    }
+    $notices_html .= '</div>';
+    $page['content'] = $notices_html;
+} else {
+    // Prepare and execute a query to fetch the page content safely.
+    $stmt = $conn->prepare("SELECT title, content FROM pages WHERE slug = ?");
+    $stmt->bind_param("s", $slug);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $page = $result->fetch_assoc();
+    $stmt->close();
+}
 
 // If no page is found with that slug, show a 404 error.
 if (!$page) {

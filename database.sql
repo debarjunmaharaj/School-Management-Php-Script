@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jul 29, 2025 at 12:33 PM
--- Server version: 11.4.5-MariaDB
--- PHP Version: 8.3.19
+-- Host: 127.0.0.1
+-- Generation Time: Jul 16, 2026 at 04:34 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `crimeand_ss`
+-- Database: `school`
 --
 
 -- --------------------------------------------------------
@@ -76,6 +76,13 @@ CREATE TABLE `announcements` (
   `post_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `announcements`
+--
+
+INSERT INTO `announcements` (`id`, `title`, `content`, `post_date`) VALUES
+(1, 'Demo Announcement', 'demo Announcement', '2026-07-14 09:56:08');
+
 -- --------------------------------------------------------
 
 --
@@ -123,12 +130,12 @@ CREATE TABLE `downloads` (
 --
 
 INSERT INTO `downloads` (`id`, `title`, `file_path`, `file_size`, `file_type`) VALUES
-(1, '2024-2025 Academic Calendar', 'uploads/documents/academic-calendar.pdf', '1.2 MB', 'pdf'),
 (2, 'Student Handbook', 'uploads/documents/student-handbook.pdf', '2.5 MB', 'pdf'),
 (3, '2024-2025 Academic Calendar', 'uploads/documents/academic-calendar.pdf', '1.2 MB', 'pdf'),
 (4, 'Student Handbook', 'uploads/documents/student-handbook.pdf', '2.5 MB', 'pdf'),
 (5, '2024-2025 Academic Calendar', 'uploads/documents/academic-calendar.pdf', '1.2 MB', 'pdf'),
-(6, 'Student Handbook', 'uploads/documents/student-handbook.pdf', '2.5 MB', 'pdf');
+(6, 'Student Handbook', 'uploads/documents/student-handbook.pdf', '2.5 MB', 'pdf'),
+(7, '2024-2025 Academic Calendar', 'uploads/documents/1784168048_file-sample_150kB.pdf', '139.44 KB', 'pdf');
 
 -- --------------------------------------------------------
 
@@ -160,6 +167,26 @@ INSERT INTO `events` (`id`, `title`, `event_date`, `location`) VALUES
 (10, 'Spring Music Concert', '2024-11-10 19:00:00', 'Auditorium'),
 (11, 'df', '2025-07-27 05:41:00', 'class3'),
 (12, 'dfg', '2025-07-31 05:43:00', 'class2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `id` int(11) NOT NULL,
+  `caption` varchar(255) DEFAULT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`id`, `caption`, `image_path`, `created_at`) VALUES
+(1, 'caption', 'uploads/gallery/gal_6a584155c7434.png', '2026-07-16 02:26:29');
 
 -- --------------------------------------------------------
 
@@ -238,6 +265,29 @@ INSERT INTO `posts` (`id`, `title`, `slug`, `content`, `author`, `created_at`) V
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `research_publications`
+--
+
+CREATE TABLE `research_publications` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `volume` varchar(50) DEFAULT NULL,
+  `year` varchar(10) DEFAULT NULL,
+  `image_path` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `research_publications`
+--
+
+INSERT INTO `research_publications` (`id`, `title`, `content`, `volume`, `year`, `image_path`, `created_at`) VALUES
+(1, 'demo', 'xx', '12', '2026', '', '2026-07-16 02:12:03');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -271,16 +321,33 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
+('active_homepage', 'home3.php'),
 ('ad_sidebar_code', '<div class=\"p-4 bg-yellow-200 text-center rounded-lg\"><p class=\"font-bold\">Advertisement</p><p>Your ad here!</p></div>'),
+('best_student_class_roll', 'শ্রেণি: পঞ্চম, রোল: ০১'),
+('best_student_desc', 'চমৎকার উপস্থিতি ও ক্লাসে মনোযোগী থাকার জন্য এ মাসের সেরা নির্বাচিত হয়েছে।'),
+('best_student_name', 'সুমাইয়া জাহান মিম'),
 ('contact_address', '123 Education Street, Springfield, ST 12345'),
-('contact_email', 'info@springfieldelementary.edu'),
-('contact_phone', '+1 (555) 123-4567'),
+('contact_email', 'netfieofficial@gmail.com'),
+('contact_phone', '+1 (555) xxxxxxx'),
 ('emergency_email', 'emergency@springfield.edu'),
 ('emergency_phone', '(555) 911-HELP'),
-('footer_copyright_text', 'ï¿½ 2025 Springfield Elementary. All rights reserved.'),
+('footer_about_text', 'Authorized by the Government of Bangladesh and recognized by the University Grants Commission (UGC), Springfield Elementary emphasizes research, innovation, and ethical development.'),
+('footer_academic_units', '[{\"title\":\"Computer Science & Engineering\",\"url\":\"#\"},{\"title\":\"Electrical & Electronic Engineering\",\"url\":\"#\"}]'),
+('footer_copyright_text', '©️2026 Netfie Elementary. All rights reserved.'),
+('footer_designed_text', 'Designed and monitored by the ICT Cell, Dhaka Metropolitan University.'),
+('footer_quick_portals', '[{\"title\":\"Student Online Registration\",\"url\":\"#\"},{\"title\":\"Faculty Directory\",\"url\":\"#\"}]'),
 ('hero_background_image', 'uploads/site_meta/hero_bg.png'),
 ('hero_button_text', 'Apply Now'),
 ('hero_button_url', 'admission.php'),
+('infra_c1_desc', 'Housing over 50,000 reference volumes alongside access to premium research databases.'),
+('infra_c1_img', 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=600&auto=format&fit=crop'),
+('infra_c1_title', 'Central Digital Library'),
+('infra_c2_desc', 'Fully updated instrumentation arrays designed for practical academic evaluations.'),
+('infra_c2_img', 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=600&auto=format&fit=crop'),
+('infra_c2_title', 'Modern Physics & CSE Labs'),
+('infra_c3_desc', 'Fostering teamwork, health, and leadership skills through competitive tournaments.'),
+('infra_c3_img', 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop'),
+('infra_c3_title', 'Sports & Physical Rec Center'),
 ('minister_message_content', 'Education is the most powerful tool we have to change the world. I commend Springfield Elementary for its unwavering commitment to excellence and for shaping the leaders of tomorrow. Your focus on holistic development is a model for schools across the nation.'),
 ('minister_message_name', 'Hon. Jane Smith'),
 ('minister_message_title', 'A Word from the Minister of Education'),
@@ -290,14 +357,20 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('principal_message_name', 'Principal Seymour Skinner'),
 ('principal_message_title', 'A Message from Our Principal'),
 ('principal_photo_url', 'uploads/teachers/leader1.jpg'),
-('school_name', 'Springfield Elementary'),
+('research_publications_content', '<div class=\"research-item\">\r\n    <div class=\"research-meta\">\r\n        <span>Vol. 14</span>\r\n        <strong>2025</strong>\r\n    </div>\r\n    <div class=\"research-info\">\r\n        <h4>Impact of Machine Learning on Climate Data Processing in the Bay of Bengal</h4>\r\n        <p>Published in the DMU Journal of Science and Information Technology by Dr. Tariqul Islam.</p>\r\n    </div>\r\n</div>\r\n<div class=\"research-item\">\r\n    <div class=\"research-meta\">\r\n        <span>Vol. 09</span>\r\n        <strong>2025</strong>\r\n    </div>\r\n    <div class=\"research-info\">\r\n        <h4>Macroeconomic Indicators and Export-Oriented Industrialization Trends in South Asia</h4>\r\n        <p>Published in the DMU Journal of Business and Economics by Prof. Sarah Karim.</p>\r\n    </div>\r\n</div>'),
+('school_eiin', '১০২২৩৪'),
+('school_name', 'Netfie Elementary'),
 ('school_tagline', 'Excellence in Education Since 1985'),
 ('site_favicon', 'uploads/logos/favicon.ico'),
 ('site_logo', 'uploads/logos/logo.png'),
-('social_facebook', 'https://facebook.com'),
+('social_facebook', 'https://www.facebook.com/netfieofficial'),
 ('social_instagram', ''),
 ('social_twitter', 'https://twitter.com'),
-('social_youtube', '');
+('social_youtube', ''),
+('stats_classrooms', '১০টি'),
+('stats_pass_rate', '১০০%'),
+('stats_students', '৪৫০+'),
+('stats_teachers', '১২ জন');
 
 -- --------------------------------------------------------
 
@@ -354,7 +427,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `role_id`, `created_at`) VALUES
-(1, 'admin', 'admin@school.com', '$2y$10$9sZ.NlK2.lJ5s/T3zG5bYOu7fG.b5X.5dI6G.q8jU-3bF3cW4eY8aK', 1, '2025-07-26 23:20:35');
+(1, 'admin', 'admin@school.com', '$2y$10$0NiDxSqiiaaTtekIBjltAedCUikp/Bc3xkuK4URsDW1QEv91jEwXS', 1, '2025-07-26 23:20:35');
 
 -- --------------------------------------------------------
 
@@ -418,6 +491,12 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `gallery`
+--
+ALTER TABLE `gallery`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `notices`
 --
 ALTER TABLE `notices`
@@ -436,6 +515,12 @@ ALTER TABLE `pages`
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `slug` (`slug`);
+
+--
+-- Indexes for table `research_publications`
+--
+ALTER TABLE `research_publications`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `roles`
@@ -490,7 +575,7 @@ ALTER TABLE `admissions`
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `contact_submissions`
@@ -502,13 +587,19 @@ ALTER TABLE `contact_submissions`
 -- AUTO_INCREMENT for table `downloads`
 --
 ALTER TABLE `downloads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `gallery`
+--
+ALTER TABLE `gallery`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `notices`
@@ -527,6 +618,12 @@ ALTER TABLE `pages`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `research_publications`
+--
+ALTER TABLE `research_publications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
