@@ -762,6 +762,122 @@ if ($base_path === '//') {
             color: #64748b;
         }
 
+        /* University News & Articles Section */
+        .home2-post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .home2-post-card {
+            background: #ffffff;
+            border: 1px solid var(--gray-border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .home2-post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(11, 34, 64, 0.08);
+            border-color: var(--accent-gold);
+        }
+
+        .home2-post-thumb-wrap {
+            height: 150px;
+            background-color: #f1f5f9;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .home2-post-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .home2-post-card:hover .home2-post-thumb-wrap img {
+            transform: scale(1.05);
+        }
+
+        .home2-post-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0b2240 0%, #1e3a5f 100%);
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+        }
+
+        .home2-post-date-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(11, 34, 64, 0.9);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border-left: 2px solid var(--accent-gold);
+        }
+
+        .home2-post-body {
+            padding: 16px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .home2-post-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            line-height: 1.45;
+            margin-bottom: 8px;
+        }
+
+        .home2-post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .home2-post-title a:hover {
+            color: var(--accent-gold-hover);
+        }
+
+        .home2-post-excerpt {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+
+        .home2-post-btn {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .home2-post-btn:hover {
+            color: var(--accent-gold-hover);
+            transform: translateX(3px);
+        }
+
         /* Video Gallery Section */
         .video-section {
             background-color: var(--primary-blue);
@@ -1135,20 +1251,50 @@ if ($base_path === '//') {
                 </div>
             </div>
 
-            <!-- Latest News (Posts) -->
+            <!-- Latest News & University Press (Posts) -->
             <div class="panel-card">
-                <h2 class="panel-heading">Latest News</h2>
-                <?php if ($posts_result && mysqli_num_rows($posts_result) > 0): ?>
-                    <?php while($post = mysqli_fetch_assoc($posts_result)): ?>
-                    <div class="news-box">
-                        <h4><?= htmlspecialchars($post['title']) ?></h4>
-                        <span>Posted on: <?= date('F j, Y', strtotime($post['created_at'])) ?></span>
-                        <a href="post/<?= htmlspecialchars($post['slug']) ?>">Read More &rarr;</a>
-                    </div>
-                    <?php endwhile; ?>
-                <?php else: ?>
-                    <p style="font-size: 0.9rem; color: #64748b;">No recent news found.</p>
-                <?php endif; ?>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">
+                    <h2 class="panel-heading" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;"><i class="fa-solid fa-newspaper" style="color: var(--accent-gold); margin-right: 8px;"></i> Latest News & University Press</h2>
+                </div>
+                <div class="home2-post-grid">
+                    <?php if ($posts_result && mysqli_num_rows($posts_result) > 0): ?>
+                        <?php while($post = mysqli_fetch_assoc($posts_result)): ?>
+                        <div class="home2-post-card">
+                            <div class="home2-post-thumb-wrap">
+                                <?php if (!empty($post['image_url'])): ?>
+                                    <img src="<?= htmlspecialchars($post['image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>">
+                                <?php else: ?>
+                                    <div class="home2-post-placeholder">
+                                        <i class="fa-solid fa-newspaper"></i>
+                                    </div>
+                                <?php endif; ?>
+                                <span class="home2-post-date-badge">
+                                    <i class="fa-regular fa-calendar" style="margin-right: 4px;"></i> <?= date('M d, Y', strtotime($post['created_at'])) ?>
+                                </span>
+                            </div>
+                            <div class="home2-post-body">
+                                <div>
+                                    <h4 class="home2-post-title">
+                                        <a href="post/<?= htmlspecialchars($post['slug']) ?>">
+                                            <?= htmlspecialchars($post['title']) ?>
+                                        </a>
+                                    </h4>
+                                    <p class="home2-post-excerpt">
+                                        <?= htmlspecialchars(mb_substr(strip_tags($post['content']), 0, 95)) ?>...
+                                    </p>
+                                </div>
+                                <div style="margin-top: 10px;">
+                                    <a href="post/<?= htmlspecialchars($post['slug']) ?>" class="home2-post-btn">
+                                        Read Full Story <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <p style="font-size: 0.9rem; color: #64748b;">No recent news found.</p>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <!-- Dynamic Faculties Section -->
