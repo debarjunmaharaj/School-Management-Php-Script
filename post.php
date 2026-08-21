@@ -32,7 +32,7 @@ if (!$post) {
     http_response_code(404);
     $page_title = "Error 404";
     include 'includes/header.php';
-    echo '<div class="text-center py-20"><h2 class="text-2xl font-bold">Post Not Found</h2><p>The news post you are looking for does not exist.</p><a href="/" class="text-blue-600 hover:underline mt-4 inline-block">← Go to Homepage</a></div>';
+    echo '<div class="text-center py-20"><h2 class="text-2xl font-bold">Post Not Found</h2><p>The news post you are looking for does not exist.</p><a href="index.php" class="text-blue-600 hover:underline mt-4 inline-block">← Go to Homepage</a></div>';
     include 'includes/footer.php';
     exit();
 }
@@ -68,7 +68,7 @@ include 'includes/header.php';
 
     <!-- Back Button -->
     <div class="mt-12 pt-6 border-t">
-        <a href="/" class="text-blue-600 hover:underline">← Back to News & Announcements</a>
+        <a href="index.php" class="text-blue-600 hover:underline">← Back to News & Announcements</a>
     </div>
 </div>
 

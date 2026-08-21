@@ -3,7 +3,9 @@
 require_once __DIR__ . '/config/db.php';
 require_once __DIR__ . '/includes/functions.php';
 
-$settings = get_all_settings($conn);
+if (!isset($settings)) {
+    $settings = get_all_settings($conn);
+}
 
 // Get pages for navigation
 $pages_nav_result = mysqli_query($conn, "SELECT title, slug FROM pages LIMIT 5");
@@ -1020,7 +1022,7 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
     <!-- Sticky Navigation Brand Header -->
     <header>
         <div class="nav-container">
-            <div class="logo-area">
+            <a href="index.php" class="logo-area" style="text-decoration: none; color: inherit;">
                 <?php if (!empty($settings['site_logo'])): ?>
                     <img src="<?= htmlspecialchars($settings['site_logo']) ?>" alt="logo" style="width: 55px; height: 55px; border-radius: 50%; background: white; padding: 2px; border: 2px solid var(--accent-gold); object-fit: contain;">
                 <?php else: ?>
@@ -1032,7 +1034,7 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
                     <h1><?= htmlspecialchars($settings['school_name'] ?? 'ঢাকা মেট্রোপলিটন ইউনিভার্সিটি') ?></h1>
                     <p><?= htmlspecialchars($settings['school_tagline'] ?? 'Dhaka Metropolitan University') ?></p>
                 </div>
-            </div>
+            </a>
             <nav>
                 <ul id="nav-list">
                     <li><a href="index.php">Home</a></li>

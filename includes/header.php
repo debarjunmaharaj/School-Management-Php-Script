@@ -32,7 +32,7 @@ $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
     <header class="bg-blue-800 text-white shadow-md">
         <div class="container mx-auto px-4 py-3">
             <div class="flex items-center justify-between">
-                <a href="/" class="flex items-center space-x-4">
+                <a href="index.php" class="flex items-center space-x-4">
                     <img src="<?= htmlspecialchars($settings['site_logo']) ?>" alt="logo" class="h-16 w-auto bg-white p-1 rounded-full">
                     <div>
                         <h1 class="text-2xl font-bold"><?= htmlspecialchars($settings['school_name']) ?></h1>
@@ -49,7 +49,7 @@ $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
         </div>
         <nav class="bg-blue-900">
             <div class="container mx-auto px-4 py-2 flex items-center space-x-6">
-                <a href="/" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Home</a>
+                <a href="index.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Home</a>
                 <?php while($page = mysqli_fetch_assoc($pages_nav_result)): ?>
                     <a href="page.php?slug=<?= htmlspecialchars($page['slug']) ?>" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><?= htmlspecialchars($page['title']) ?></a>
                 <?php endwhile; ?>

@@ -1,9 +1,16 @@
 <?php
+require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/includes/functions.php';
+
+if (!isset($settings)) {
+    $settings = get_all_settings($conn);
+}
+
 // Fetch all notices and downloads for dynamic loop integration
 $notices_query = mysqli_query($conn, "SELECT * FROM notices ORDER BY id DESC LIMIT 5");
 $downloads_query = mysqli_query($conn, "SELECT * FROM downloads WHERE file_type = 'pdf' ORDER BY id DESC LIMIT 5");
 $teachers_query = mysqli_query($conn, "SELECT * FROM teachers WHERE is_leadership = 0 ORDER BY id DESC LIMIT 3");
-$committee_query = mysqli_query($conn, "SELECT * FROM teachers WHERE is_leadership = 1 ORDER BY id DESC LIMIT 3");
+$committee_query = mysqli_query($conn, "SELECT * FROM managing_committee ORDER BY id ASC");
 $marquee_notice = mysqli_query($conn, "SELECT title FROM notices ORDER BY id DESC LIMIT 1");
 $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0) ? mysqli_fetch_assoc($marquee_notice)['title'] : '২০২৬ শিক্ষাবর্ষে প্রাক-প্রাথমিক থেকে ৫ম শ্রেণিতে ভর্তি কার্যক্রম চলছে।';
 ?>
@@ -745,7 +752,7 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
     <!-- ২. প্রধান নেভিগেশন ও লোগো এরিয়া -->
     <header>
         <div class="header-container">
-            <div class="logo-section">
+            <a href="index.php" class="logo-section" style="text-decoration: none; color: inherit;">
                 <?php if(!empty($settings['site_logo'])): ?>
                 <div class="logo-box">
                     <img src="<?= htmlspecialchars($settings['site_logo']) ?>" alt="Logo">
@@ -759,10 +766,10 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                     <h1><?= htmlspecialchars($settings['school_name'] ?? 'সূর্যমুখী সরকারি প্রাথমিক বিদ্যালয়') ?></h1>
                     <p><?= htmlspecialchars($settings['school_tagline'] ?? 'জ্ঞানই আলো, শিক্ষাই প্রগতি') ?></p>
                 </div>
-            </div>
+            </a>
             <nav>
                 <ul id="nav-menu">
-                    <li><a href="#" class="active">হোম</a></li>
+                    <li><a href="index.php" class="active">হোম</a></li>
                     <li><a href="page.php?slug=about-us">পরিচিতি</a></li>
                     <li><a href="page.php?slug=teachers">শিক্ষকবৃন্দ</a></li>
                     <li><a href="page.php?slug=notices">নোটিশ</a></li>
@@ -1009,7 +1016,7 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                         <?php while ($comm = mysqli_fetch_assoc($committee_query)): ?>
                             <li class="committee-member">
                                 <strong><?= htmlspecialchars($comm['name']) ?></strong>
-                                <span><?= htmlspecialchars($comm['subject']) ?></span>
+                                <span><?= htmlspecialchars($comm['designation']) ?></span>
                             </li>
                         <?php endwhile; ?>
                     <?php else: ?>

@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-6 text-center rounded-lg">
             <h3 class="text-2xl font-bold">Message Sent!</h3>
             <p><?= $message ?></p>
-            <a href="/" class="inline-block mt-4 bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700">Return to Homepage</a>
+            <a href="index.php" class="inline-block mt-4 bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700">Return to Homepage</a>
         </div>
     <?php else: ?>
         <!-- Contact Form and Info Display -->

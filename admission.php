@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-6 text-center rounded-lg mb-6">
             <h3 class="text-2xl font-bold">Thank You!</h3>
             <p><?= $message ?></p>
-            <a href="/" class="inline-block mt-4 bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700">Back to Home</a>
+            <a href="index.php" class="inline-block mt-4 bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700">Back to Home</a>
         </div>
     <?php else: ?>
         <?php if (!empty($error)): ?>

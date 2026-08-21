@@ -23,7 +23,7 @@ if (!$pub) {
     http_response_code(404);
     $page_title = "Error 404";
     include 'includes/header.php';
-    echo '<div class="text-center py-20"><h2 class="text-2xl font-bold">Research Not Found</h2><p>The research publication you are looking for does not exist.</p><a href="/" class="text-blue-600 hover:underline mt-4 inline-block">← Go to Homepage</a></div>';
+    echo '<div class="text-center py-20"><h2 class="text-2xl font-bold">Research Not Found</h2><p>The research publication you are looking for does not exist.</p><a href="index.php" class="text-blue-600 hover:underline mt-4 inline-block">← Go to Homepage</a></div>';
     include 'includes/footer.php';
     exit();
 }
@@ -60,7 +60,7 @@ include 'includes/header.php';
 
     <!-- Back Button -->
     <div class="mt-12 pt-6 border-t border-slate-100">
-        <a href="/" class="text-indigo-600 hover:text-indigo-800 font-semibold inline-flex items-center gap-2 transition">
+        <a href="index.php" class="text-indigo-600 hover:text-indigo-800 font-semibold inline-flex items-center gap-2 transition">
             <i class="fa-solid fa-arrow-left"></i> Back to Homepage
         </a>
     </div>

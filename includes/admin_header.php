@@ -86,6 +86,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <a href="manage_gallery.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_gallery.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
                         <i class="ri-image-line text-lg text-slate-400"></i> Photo Gallery
                     </a>
+                    <a href="manage_committee.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_committee.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
+                        <i class="ri-team-line text-lg text-slate-400"></i> Managing Committee (ম্যানেজিং কমিটি)
+                    </a>
                 </div>
             </div>
 
@@ -106,6 +109,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <div>
                 <h2 class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">System</h2>
                 <div class="space-y-1">
+                    <a href="manage_themes.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_themes.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
+                        <i class="ri-palette-line text-lg text-slate-400"></i> Theme Management
+                    </a>
                     <a href="manage_settings.php" class="flex items-center gap-3 py-2 px-4 rounded-xl transition <?= $current_page == 'manage_settings.php' ? 'bg-indigo-600 text-white font-medium' : 'hover:bg-slate-800 hover:text-white' ?>">
                         <i class="ri-settings-3-line text-lg text-slate-400"></i> General Settings
                     </a>

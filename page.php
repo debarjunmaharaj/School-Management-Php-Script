@@ -56,7 +56,7 @@ if (!$page) {
     http_response_code(404);
     $page_title = "Error 404"; // Update the page title for the error page.
     // We need to re-include the header to show the correct title, or just output the error message.
-    echo '<div class="text-center py-20"><h2 class="text-2xl font-bold">Page Not Found</h2><p>The page you are looking for does not exist.</p><a href="/" class="text-blue-600 hover:underline mt-4 inline-block">← Go to Homepage</a></div>';
+    echo '<div class="text-center py-20"><h2 class="text-2xl font-bold">Page Not Found</h2><p>The page you are looking for does not exist.</p><a href="index.php" class="text-blue-600 hover:underline mt-4 inline-block">← Go to Homepage</a></div>';
     include 'includes/footer.php';
     exit();
 }
@@ -83,7 +83,7 @@ echo "<script>document.querySelector('.subpage-header h1').textContent = '" . ht
     </article>
 
     <div class="mt-12 pt-6 border-t">
-        <a href="/" class="text-blue-600 hover:underline">← Back to Homepage</a>
+        <a href="index.php" class="text-blue-600 hover:underline">← Back to Homepage</a>
     </div>
 </div>
 
