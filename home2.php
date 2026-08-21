@@ -47,6 +47,9 @@ if ($base_path === '//') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Remixicon Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <!-- AOS Animation CSS & Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
             --primary-blue: #0b2240; /* Prestigious Deep Blue */
@@ -1176,11 +1179,11 @@ if ($base_path === '//') {
     </header>
 
     <!-- Visual Hero Area -->
-    <section class="hero">
+    <section class="hero" data-aos="fade-in">
         <div class="hero-inner">
-            <h2>Shaping Leaders of Tomorrow</h2>
-            <p>Welcome to <?= htmlspecialchars($settings['school_name'] ?? 'Dhaka Metropolitan University') ?>, a hub for research, multi-disciplinary studies, and specialized professional growth.</p>
-            <div class="hero-ctas">
+            <h2 data-aos="fade-up">Shaping Leaders of Tomorrow</h2>
+            <p data-aos="fade-up" data-aos-delay="100">Welcome to <?= htmlspecialchars($settings['school_name'] ?? 'Dhaka Metropolitan University') ?>, a hub for research, multi-disciplinary studies, and specialized professional growth.</p>
+            <div class="hero-ctas" data-aos="fade-up" data-aos-delay="200">
                 <a href="admission.php" class="btn-large btn-gold"><?= htmlspecialchars($settings['hero_button_text'] ?? 'Explore Programs') ?></a>
                 <a href="#" class="btn-large btn-outline">Tuition Fee Waiver Guidelines</a>
             </div>
@@ -1188,7 +1191,7 @@ if ($base_path === '//') {
     </section>
 
     <!-- Fast Pathway Portals -->
-    <div class="portals-section">
+    <div class="portals-section" data-aos="fade-up">
         <div class="portals-grid">
             <div class="portal-item">
                 <i class="fa-solid fa-book-bookmark"></i>
@@ -1209,7 +1212,7 @@ if ($base_path === '//') {
     </div>
 
     <!-- Institutional Key Statistics Strip -->
-    <section class="stats-section">
+    <section class="stats-section" data-aos="fade-up">
         <div class="stats-grid">
             <div class="stat-card">
                 <h3>14,000+</h3>
@@ -1237,7 +1240,7 @@ if ($base_path === '//') {
         <div class="primary-col">
             
             <!-- Welcome Address from Vice Chancellor -->
-            <div class="panel-card">
+            <div class="panel-card" data-aos="fade-up">
                 <h2 class="panel-heading"><?= htmlspecialchars($settings['principal_message_title'] ?? "Vice Chancellor's Welcome Message") ?></h2>
                 <div class="vc-profile">
                     <img class="vc-img" src="<?= htmlspecialchars($settings['principal_photo_url'] ?? 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop') ?>" alt="Vice Chancellor">
@@ -1252,7 +1255,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- Latest News & University Press (Posts) -->
-            <div class="panel-card">
+            <div class="panel-card" data-aos="fade-up">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">
                     <h2 class="panel-heading" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;"><i class="fa-solid fa-newspaper" style="color: var(--accent-gold); margin-right: 8px;"></i> Latest News & University Press</h2>
                 </div>
@@ -1298,7 +1301,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- Dynamic Faculties Section -->
-            <div class="panel-card">
+            <div class="panel-card" data-aos="fade-up">
                 <h2 class="panel-heading">Academic Faculties</h2>
                 <p>Our undergraduate and postgraduate degree operations span multiple core faculties authorized by the UGC:</p>
                 <div class="faculties-grid">
@@ -1326,7 +1329,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- Research & Journals -->
-            <div class="panel-card">
+            <div class="panel-card" data-aos="fade-up">
                 <h2 class="panel-heading">Research & Publications</h2>
                 <p style="margin-bottom: 20px;">Highlighting recent scientific and humanitarian work led by our dedicated researchers:</p>
                 <?php
@@ -1355,7 +1358,7 @@ if ($base_path === '//') {
         </div>
 
         <!-- Right Side Sidebar Widgets -->
-        <div class="sidebar-col">
+        <div class="sidebar-col" data-aos="fade-left">
             
             <!-- Real-time Notice Board -->
             <div class="sidebar-widget">
@@ -1432,7 +1435,7 @@ if ($base_path === '//') {
     </main>
 
     <!-- Meet Our Teachers Section -->
-    <section class="teachers-section">
+    <section class="teachers-section" data-aos="fade-up">
         <div class="teachers-inner">
             <h2 class="panel-heading" style="text-align: center; margin-bottom: 10px;">Meet Our Teachers</h2>
             <p style="text-align: center;">Our highly qualified faculty members are committed to educational excellence:</p>
@@ -1454,7 +1457,7 @@ if ($base_path === '//') {
     </section>
 
     <!-- Video Gallery Section -->
-    <section class="video-section">
+    <section class="video-section" data-aos="zoom-in">
         <div class="video-inner">
             <h2 class="panel-heading" style="margin-bottom: 10px; color: #ffffff;">Video Gallery</h2>
             <p>A glimpse into life at <?= htmlspecialchars($settings['school_name'] ?? 'Dhaka Metropolitan University') ?>:</p>
@@ -1475,7 +1478,7 @@ if ($base_path === '//') {
     </section>
 
     <!-- Additional Infrastructure Layout -->
-    <section class="facilities-layout">
+    <section class="facilities-layout" data-aos="fade-up">
         <div class="facilities-inner">
             <h2 class="panel-heading" style="margin-bottom: 10px;">Our Campus Infrastructure</h2>
             <p>Developing robust learning spaces to support complete research and development goals:</p>
@@ -1585,6 +1588,20 @@ if ($base_path === '//') {
                 menuList.classList.add("active");
             }
         }
+    </script>
+    <!-- AOS Library JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof AOS !== "undefined") {
+                AOS.init({
+                    duration: 750,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 40
+                });
+            }
+        });
     </script>
 </body>
 </html>

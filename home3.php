@@ -32,6 +32,9 @@ if ($base_path === '//') {
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation CSS & Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
             --primary-green: #15803d; /* প্রাতিষ্ঠানিক গাঢ় সবুজ */
@@ -46,6 +49,73 @@ if ($base_path === '//') {
             --border-color: #e2e8f0;
             --transition: all 0.3s ease;
             --radius: 8px;
+        }
+
+        /* Animated Kids Elements & Playful FX */
+        @keyframes sunGlowSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.08); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+        @keyframes kiteDrift {
+            0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+            50% { transform: translate(15px, -18px) rotate(8deg); }
+        }
+        @keyframes planeCruise {
+            0% { transform: translate(-10px, 5px) rotate(0deg); }
+            50% { transform: translate(20px, -15px) rotate(6deg); }
+            100% { transform: translate(-10px, 5px) rotate(0deg); }
+        }
+        @keyframes balloonBob {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-16px) rotate(3deg); }
+        }
+        @keyframes starTwinkleGlow {
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.3); opacity: 1; filter: drop-shadow(0 0 8px #f59e0b); }
+        }
+        @keyframes letterBounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        .anim-sun-badge {
+            animation: sunGlowSpin 24s linear infinite;
+        }
+        .anim-kite {
+            animation: kiteDrift 4.5s ease-in-out infinite;
+        }
+        .anim-plane {
+            animation: planeCruise 5s ease-in-out infinite;
+        }
+        .anim-balloon {
+            animation: balloonBob 4s ease-in-out infinite;
+        }
+        .anim-star-twinkle {
+            animation: starTwinkleGlow 2.5s ease-in-out infinite;
+        }
+        .anim-letter-hop {
+            animation: letterBounce 3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        .kids-float-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .interactive-hover-card {
+            transition: var(--transition);
+        }
+        .interactive-hover-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(21, 128, 61, 0.12);
         }
 
         * {
@@ -881,9 +951,17 @@ if ($base_path === '//') {
     </div>
 
     <!-- ৪. হিরো ব্যানার স্লাইডার -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="hero-badge"><?= htmlspecialchars($settings['hero_button_text'] ?? 'ভর্তি চলছে - সেশন ২০২৬') ?></span>
+    <section class="hero" data-aos="fade-in" style="position: relative; overflow: hidden;">
+        <!-- Animated Playful Kids Floating Elements -->
+        <div class="kids-float-container">
+            <div class="anim-sun-badge" style="position: absolute; top: 20px; right: 8%; font-size: 3.2rem; filter: drop-shadow(0 0 12px rgba(250,204,21,0.7));">☀️</div>
+            <div class="anim-kite" style="position: absolute; top: 35px; left: 6%; font-size: 2.4rem; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));">🪁</div>
+            <div class="anim-balloon" style="position: absolute; bottom: 25px; right: 12%; font-size: 2.2rem;">🎈</div>
+            <div class="anim-plane" style="position: absolute; bottom: 20px; left: 14%; font-size: 1.8rem;">🚀</div>
+        </div>
+
+        <div class="hero-content" data-aos="zoom-in" style="position: relative; z-index: 10;">
+            <span class="hero-badge"><span class="anim-letter-hop">⭐</span> <?= htmlspecialchars($settings['hero_button_text'] ?? 'ভর্তি চলছে - সেশন ২০২৬') ?> <span class="anim-letter-hop">⭐</span></span>
             <h2><?= htmlspecialchars($settings['school_name'] ?? 'সূর্যমুখী সরকারি প্রাথমিক বিদ্যালয়') ?></h2>
             <p><?= htmlspecialchars($settings['school_tagline'] ?? 'আপনার সন্তানের প্রাথমিক শিক্ষার মজবুত ভিত্তি গড়ে তুলতে আমরা বদ্ধপরিকর।') ?></p>
             <a href="<?= htmlspecialchars($settings['hero_button_url'] ?? 'admission.php') ?>" class="btn btn-accent"><i class="fa-solid fa-file-signature"></i> অনলাইনে ভর্তি আবেদন</a>
@@ -891,19 +969,19 @@ if ($base_path === '//') {
     </section>
 
     <!-- ৫. কুইক পোর্টাল ও সেবা বক্স -->
-    <div class="portals-container">
+    <div class="portals-container" data-aos="fade-up">
         <div class="portals-grid">
-            <div class="portal-card">
-                <i class="fa-solid fa-child"></i>
+            <div class="portal-card interactive-hover-card">
+                <i class="fa-solid fa-child" style="animation: letterBounce 2.5s ease-in-out infinite;"></i>
                 <h3>শিক্ষার্থী কর্নার</h3>
                 <p>শ্রেণি রুটিন, বার্ষিক সিলেবাস এবং ফলাফল দেখুন এখানে।</p>
             </div>
-            <div class="portal-card">
+            <div class="portal-card interactive-hover-card">
                 <i class="fa-solid fa-hands-holding-child"></i>
                 <h3>অভিভাবক জোন</h3>
                 <p>সন্তানের উপস্থিতি, প্রগতি এবং ছুটির আবেদনের তথ্য।</p>
             </div>
-            <div class="portal-card">
+            <div class="portal-card interactive-hover-card">
                 <i class="fa-solid fa-chalkboard-user"></i>
                 <h3>শিক্ষক পোর্টাল</h3>
                 <p>ডিজিটাল হাজিরা, ডায়েরি ও পাঠ পরিকল্পনা মডিউল।</p>
@@ -918,7 +996,7 @@ if ($base_path === '//') {
         <div class="left-column">
             
             <!-- ৬. বিদ্যালয়ের সংক্ষিপ্ত পরিচিতি -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-school"></i> আমাদের স্কুল পরিচিতি</h2>
                 <div class="intro-text">
                     <p><?= htmlspecialchars($settings['footer_about_text'] ?? 'সূর্যমুখী সরকারি প্রাথমিক বিদ্যালয়টি দেশের অন্যতম প্রাচীন ও ঐতিহ্যবাহী শিক্ষাপ্রতিষ্ঠান। শিক্ষার্থীদের সুপ্ত প্রতিভা বিকাশ ও আদর্শ নাগরিক হিসেবে গড়ে তোলার লক্ষ্যে প্রতিষ্ঠানটি কাজ করে যাচ্ছে। আমাদের এখানে রয়েছে আধুনিক মাল্টিমিডিয়া ক্লাসরুম, সুবিশাল খেলার মাঠ ও নিবেদিতপ্রাণ শিক্ষক মণ্ডলী।') ?></p>
@@ -926,7 +1004,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- ৭. প্রধান শিক্ষকের বাণী -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-signature"></i> <?= htmlspecialchars($settings['principal_message_title'] ?? 'প্রধান শিক্ষকের বাণী') ?></h2>
                 <div class="leader-message">
                     <img class="leader-img" src="<?= !empty($settings['principal_photo_url']) ? htmlspecialchars($settings['principal_photo_url']) : 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop' ?>" alt="প্রধান শিক্ষক">
@@ -939,7 +1017,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- ৮. ম্যানেজিং কমিটির সভাপতির বাণী -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-user-tie"></i> <?= htmlspecialchars($settings['minister_message_title'] ?? 'সভাপতির বাণী') ?></h2>
                 <div class="chairman-message">
                     <?php if(!empty($settings['minister_photo_url'])): ?>
@@ -954,22 +1032,22 @@ if ($base_path === '//') {
             </div>
 
             <!-- ৯. বিদ্যালয়ের মূল পরিসংখ্যান -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> এক নজরে আমাদের স্কুল</h2>
                 <div class="stats-grid">
-                    <div class="stat-item">
+                    <div class="stat-item interactive-hover-card">
                         <h3><?= htmlspecialchars($settings['stats_students'] ?? '৪৫০+') ?></h3>
                         <p>ছাত্র-ছাত্রী</p>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item interactive-hover-card">
                         <h3><?= htmlspecialchars($settings['stats_teachers'] ?? '১২ জন') ?></h3>
                         <p>শিক্ষক-শিক্ষিকা</p>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item interactive-hover-card">
                         <h3><?= htmlspecialchars($settings['stats_pass_rate'] ?? '১০০%') ?></h3>
                         <p>সমাপনী পাসের হার</p>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item interactive-hover-card">
                         <h3><?= htmlspecialchars($settings['stats_classrooms'] ?? '১০টি') ?></h3>
                         <p>শ্রেণিকক্ষ</p>
                     </div>
@@ -977,38 +1055,38 @@ if ($base_path === '//') {
             </div>
 
             <!-- ১১. শ্রেণিভিত্তিক শিক্ষা কার্যক্রম -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> শিক্ষা কার্যক্রম</h2>
                 <p style="margin-bottom: 15px;">জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) কর্তৃক প্রণীত প্রাথমিক স্তরের পাঠ্যসূচী অত্যন্ত দক্ষতার সাথে অনুসরণ করা হয়:</p>
                 <div class="class-grid">
-                    <div class="class-item">
-                        <h4>প্রাক-প্রাথমিক</h4>
+                    <div class="class-item interactive-hover-card">
+                        <h4><span class="anim-letter-hop">🎒</span> প্রাক-প্রাথমিক</h4>
                         <p>খেলার ছলে আনন্দদায়ক শিখন</p>
                     </div>
-                    <div class="class-item">
-                        <h4>প্রথম-দ্বিতীয় শ্রেণি</h4>
+                    <div class="class-item interactive-hover-card">
+                        <h4><span class="anim-letter-hop" style="animation-delay: 0.2s">📖</span> প্রথম-দ্বিতীয় শ্রেণি</h4>
                         <p>বর্ণ ও ভাষার বনিয়াদি দক্ষতা</p>
                     </div>
-                    <div class="class-item">
-                        <h4>তৃতীয়-পঞ্চম শ্রেণি</h4>
+                    <div class="class-item interactive-hover-card">
+                        <h4><span class="anim-letter-hop" style="animation-delay: 0.4s">📐</span> তৃতীয়-পঞ্চম শ্রেণি</h4>
                         <p>বিষয়ভিত্তিক গভীর শিখন ও গণিত</p>
                     </div>
                 </div>
             </div>
 
             <!-- সহ-শিক্ষা কার্যক্রম -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-masks-theater"></i> সহ-শিক্ষা কার্যক্রম</h2>
                 <div class="co-curricular-list">
-                    <div class="co-curricular-card">
+                    <div class="co-curricular-card interactive-hover-card">
                         <i class="fa-solid fa-volleyball"></i>
                         <span>বার্ষিক ক্রীড়া ও দৌড় প্রতিযোগিতা</span>
                     </div>
-                    <div class="co-curricular-card">
+                    <div class="co-curricular-card interactive-hover-card">
                         <i class="fa-solid fa-guitar"></i>
                         <span>সাংস্কৃতিক উৎসব ও সঙ্গীত ক্লাব</span>
                     </div>
-                    <div class="co-curricular-card">
+                    <div class="co-curricular-card interactive-hover-card">
                         <i class="fa-solid fa-campground"></i>
                         <span>কাব স্কাউটিং কার্যক্রম</span>
                     </div>
@@ -1016,12 +1094,12 @@ if ($base_path === '//') {
             </div>
 
             <!-- ১৫. শিক্ষক ও স্টাফ প্রোফাইল -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <h2 class="section-title"><i class="fa-solid fa-users"></i> আমাদের শিক্ষকবৃন্দ</h2>
                 <div class="teacher-grid">
                     <?php if ($teachers_query && mysqli_num_rows($teachers_query) > 0): ?>
                         <?php while ($teacher = mysqli_fetch_assoc($teachers_query)): ?>
-                            <div class="teacher-card">
+                            <div class="teacher-card interactive-hover-card">
                                 <div class="teacher-avatar">
                                     <?php if(!empty($teacher['image_url'])): ?>
                                         <img src="<?= htmlspecialchars($teacher['image_url']) ?>" alt="<?= htmlspecialchars($teacher['name']) ?>">
@@ -1034,7 +1112,7 @@ if ($base_path === '//') {
                             </div>
                         <?php endwhile; ?>
                     <?php else: ?>
-                        <div class="teacher-card">
+                        <div class="teacher-card interactive-hover-card">
                             <div class="teacher-avatar"><i class="fa-solid fa-user-nurse"></i></div>
                             <h4>আফসানা আক্তার</h4>
                             <p style="font-size: 0.8rem; color: var(--text-muted);">সহকারী শিক্ষক</p>
@@ -1044,7 +1122,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- সাম্প্রতিক সংবাদ ও ব্লগ পোস্ট -->
-            <div class="section-card">
+            <div class="section-card" data-aos="fade-up">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">
                     <h2 class="section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
                         <i class="fa-solid fa-newspaper"></i> সাম্প্রতিক সংবাদ ও পোস্ট
@@ -1104,7 +1182,7 @@ if ($base_path === '//') {
         </div>
 
         <!-- ডানদিকের সাইডবার এরিয়া (বাকি ৭টি সেকশন) -->
-        <div class="right-sidebar">
+        <div class="right-sidebar" data-aos="fade-left">
             
             <!-- ১০. নোটিশ বোর্ড সেকশন -->
             <div class="section-card">
@@ -1181,12 +1259,12 @@ if ($base_path === '//') {
 
             <!-- ১৭. সেরা শিক্ষার্থী কর্নার -->
             <div class="section-card">
-                <h2 class="section-title"><i class="fa-solid fa-star"></i> মাসের সেরা শিক্ষার্থী</h2>
-                <div class="star-student-card">
+                <h2 class="section-title"><i class="fa-solid fa-star anim-star-twinkle" style="color: #f59e0b;"></i> মাসের সেরা শিক্ষার্থী <span class="anim-letter-hop">👑</span></h2>
+                <div class="star-student-card interactive-hover-card">
                     <?php if(!empty($settings['best_student_image'])): ?>
-                        <img src="<?= htmlspecialchars($settings['best_student_image']) ?>" alt="Star Student">
+                        <img src="<?= htmlspecialchars($settings['best_student_image']) ?>" alt="Star Student" style="border: 3px solid #f59e0b; box-shadow: 0 0 15px rgba(245,158,11,0.3);">
                     <?php else: ?>
-                        <i class="fa-solid fa-trophy"></i>
+                        <i class="fa-solid fa-trophy" style="color: #f59e0b;"></i>
                     <?php endif; ?>
                     <h4 style="color: var(--primary-green); font-weight: 700;"><?= htmlspecialchars($settings['best_student_name'] ?? 'সুমাইয়া জাহান মিম') ?></h4>
                     <p style="font-size: 0.85rem; color: var(--text-muted);"><?= htmlspecialchars($settings['best_student_class_roll'] ?? 'শ্রেণি: পঞ্চম, রোল: ০১') ?></p>
@@ -1195,7 +1273,7 @@ if ($base_path === '//') {
             </div>
 
             <!-- ফটো ও ভিডিও গ্যালারি -->
-            <div class="section-card">
+            <div class="section-card" data-aos="zoom-in">
                 <h2 class="section-title"><i class="fa-solid fa-images"></i> ফটো গ্যালারি</h2>
                 <div class="gallery-grid">
                     <?php 
@@ -1303,6 +1381,20 @@ if ($base_path === '//') {
                 menu.classList.add("active");
             }
         }
+    </script>
+    <!-- AOS Library JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof AOS !== "undefined") {
+                AOS.init({
+                    duration: 750,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 40
+                });
+            }
+        });
     </script>
 </body>
 </html>

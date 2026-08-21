@@ -154,5 +154,19 @@
         </footer>
     <?php endif; ?>
 
+    <!-- AOS Animation Library JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof AOS !== "undefined") {
+                AOS.init({
+                    duration: 750,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 40
+                });
+            }
+        });
+    </script>
 </body>
 </html>
