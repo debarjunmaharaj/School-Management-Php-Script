@@ -10,6 +10,7 @@ if (!isset($settings)) {
 $notices_query = mysqli_query($conn, "SELECT * FROM notices ORDER BY id DESC LIMIT 5");
 $downloads_query = mysqli_query($conn, "SELECT * FROM downloads WHERE file_type = 'pdf' ORDER BY id DESC LIMIT 5");
 $teachers_query = mysqli_query($conn, "SELECT * FROM teachers WHERE is_leadership = 0 ORDER BY id DESC LIMIT 3");
+$posts_query = mysqli_query($conn, "SELECT * FROM posts ORDER BY created_at DESC, id DESC LIMIT 4");
 $committee_query = mysqli_query($conn, "SELECT * FROM managing_committee ORDER BY id ASC");
 $marquee_notice = mysqli_query($conn, "SELECT title FROM notices ORDER BY id DESC LIMIT 1");
 $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0) ? mysqli_fetch_assoc($marquee_notice)['title'] : '২০২৬ শিক্ষাবর্ষে প্রাক-প্রাথমিক থেকে ৫ম শ্রেণিতে ভর্তি কার্যক্রম চলছে।';
@@ -595,6 +596,87 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
             border-radius: 50%;
         }
 
+        /* সাম্প্রতিক সংবাদ ও পোস্ট */
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .home3-post-card {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #fff;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .home3-post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+            border-color: var(--primary-green);
+        }
+
+        .home3-post-thumb {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            background: #f1f5f9;
+        }
+
+        .home3-post-content {
+            padding: 12px 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .home3-post-date {
+            font-size: 0.75rem;
+            color: var(--accent-orange);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .home3-post-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-color);
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .home3-post-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .home3-post-title a:hover {
+            color: var(--primary-green);
+        }
+
+        .home3-post-link {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+        }
+
+        .home3-post-link:hover {
+            color: var(--accent-orange);
+        }
+
         /* ১৬. ম্যানেজিং কমিটি পরিচিতি */
         .committee-list {
             list-style: none;
@@ -949,6 +1031,64 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                             <div class="teacher-avatar"><i class="fa-solid fa-user-nurse"></i></div>
                             <h4>আফসানা আক্তার</h4>
                             <p style="font-size: 0.8rem; color: var(--text-muted);">সহকারী শিক্ষক</p>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- সাম্প্রতিক সংবাদ ও ব্লগ পোস্ট -->
+            <div class="section-card">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">
+                    <h2 class="section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
+                        <i class="fa-solid fa-newspaper"></i> সাম্প্রতিক সংবাদ ও পোস্ট
+                    </h2>
+                </div>
+                
+                <div class="post-grid">
+                    <?php if ($posts_query && mysqli_num_rows($posts_query) > 0): ?>
+                        <?php while ($post = mysqli_fetch_assoc($posts_query)): ?>
+                            <div class="home3-post-card">
+                                <?php if (!empty($post['image_url'])): ?>
+                                    <img src="<?= htmlspecialchars($post['image_url']) ?>" alt="<?= htmlspecialchars($post['title']) ?>" class="home3-post-thumb">
+                                <?php else: ?>
+                                    <div class="home3-post-thumb" style="display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 2rem;">
+                                        <i class="fa-solid fa-newspaper"></i>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="home3-post-content">
+                                    <div>
+                                        <div class="home3-post-date">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            <?= date('d M, Y', strtotime($post['created_at'])) ?>
+                                        </div>
+                                        <h3 class="home3-post-title">
+                                            <a href="post.php?slug=<?= htmlspecialchars($post['slug']) ?>">
+                                                <?= htmlspecialchars($post['title']) ?>
+                                            </a>
+                                        </h3>
+                                        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.5; margin: 0;">
+                                            <?= htmlspecialchars(mb_substr(strip_tags($post['content']), 0, 75)) ?>...
+                                        </p>
+                                    </div>
+                                    <a href="post.php?slug=<?= htmlspecialchars($post['slug']) ?>" class="home3-post-link">
+                                        বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <div class="home3-post-card">
+                            <div class="home3-post-thumb" style="display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 2rem;">
+                                <i class="fa-solid fa-newspaper"></i>
+                            </div>
+                            <div class="home3-post-content">
+                                <div>
+                                    <div class="home3-post-date"><i class="fa-regular fa-calendar"></i> ১৫ জানুয়ারি, ২০২৬</div>
+                                    <h3 class="home3-post-title">বার্ষিক ক্রীড়া ও সাংস্কৃতিক প্রতিযোগিতা ২০২৬ অনুষ্ঠিত</h3>
+                                    <p style="font-size: 0.8rem; color: #64748b; line-height: 1.5; margin: 0;">বিদ্যালয় প্রাঙ্গণে অত্যন্ত জাঁকজমকপূর্ণভাবে বার্ষিক ক্রীড়া প্রতিযোগিতা সম্পন্ন হয়েছে...</p>
+                                </div>
+                                <a href="#" class="home3-post-link">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+                            </div>
                         </div>
                     <?php endif; ?>
                 </div>
