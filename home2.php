@@ -1573,8 +1573,18 @@ if ($base_path === '//') {
             </div>
         </div>
         <div class="footer-bottom">
-            <p><?= htmlspecialchars($settings['footer_copyright_text'] ?? '© 2026 Dhaka Metropolitan University. All Rights Reserved.') ?></p>
-            <p><?= htmlspecialchars($settings['footer_designed_text'] ?? 'Designed and monitored by the ICT Cell, Dhaka Metropolitan University.') ?></p>
+            <div>
+                <p><?= htmlspecialchars($settings['footer_copyright_text'] ?? '© 2026 Dhaka Metropolitan University. All Rights Reserved.') ?></p>
+                <p><?= htmlspecialchars($settings['footer_designed_text'] ?? 'Designed and monitored by the ICT Cell, Dhaka Metropolitan University.') ?></p>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: flex-end;">
+                <span class="inline-flex items-center gap-2" style="display:inline-flex; align-items:center; gap:10px;">
+                    <span style="color: #e2e8f0; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px;">ডেভেলপমেন্ট By :</span>
+                    <a href="https://netfie.com" target="_blank" title="Netfie.com" class="inline-flex items-center hover:opacity-90 hover:scale-105 transition-all duration-200" style="display:inline-flex; align-items:center; transition: transform 0.2s ease;">
+                        <img src="https://netfie.com/wp-content/uploads/2025/03/Netfie__1_-removebg-preview-450x174.png.webp" alt="Netfie" class="h-8 md:h-9 w-auto inline-block align-middle drop-shadow-md brightness-110" style="height: 38px; width: auto; vertical-align: middle; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));">
+                    </a>
+                </span>
+            </div>
         </div>
     </footer>
 
