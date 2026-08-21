@@ -14,11 +14,18 @@ $posts_query = mysqli_query($conn, "SELECT * FROM posts ORDER BY created_at DESC
 $committee_query = mysqli_query($conn, "SELECT * FROM managing_committee ORDER BY id ASC");
 $marquee_notice = mysqli_query($conn, "SELECT title FROM notices ORDER BY id DESC LIMIT 1");
 $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0) ? mysqli_fetch_assoc($marquee_notice)['title'] : '২০২৬ শিক্ষাবর্ষে প্রাক-প্রাথমিক থেকে ৫ম শ্রেণিতে ভর্তি কার্যক্রম চলছে।';
+
+$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$base_path = rtrim(dirname($script_name), '/\\') . '/';
+if ($base_path === '//') {
+    $base_path = '/';
+}
 ?>
 <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
+    <base href="<?= htmlspecialchars($base_path) ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($settings['school_name'] ?? 'সূর্যমুখী সরকারি প্রাথমিক বিদ্যালয়') ?> | <?= htmlspecialchars($settings['school_tagline'] ?? 'জ্ঞানের আলোয় গড়বো দেশ') ?></title>
     <!-- Google Fonts for Bengali -->
@@ -852,9 +859,9 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
             <nav>
                 <ul id="nav-menu">
                     <li><a href="index.php" class="active">হোম</a></li>
-                    <li><a href="page.php?slug=about-us">পরিচিতি</a></li>
-                    <li><a href="page.php?slug=teachers">শিক্ষকবৃন্দ</a></li>
-                    <li><a href="page.php?slug=notices">নোটিশ</a></li>
+                    <li><a href="page/about-us">পরিচিতি</a></li>
+                    <li><a href="page/teachers">শিক্ষকবৃন্দ</a></li>
+                    <li><a href="page/notices">নোটিশ</a></li>
                     <li><a href="library.php">ফটো গ্যালারি</a></li>
                     <li><a href="contact.php">যোগাযোগ</a></li>
                 </ul>
@@ -1062,7 +1069,7 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                                             <?= date('d M, Y', strtotime($post['created_at'])) ?>
                                         </div>
                                         <h3 class="home3-post-title">
-                                            <a href="post.php?slug=<?= htmlspecialchars($post['slug']) ?>">
+                                            <a href="post/<?= htmlspecialchars($post['slug']) ?>">
                                                 <?= htmlspecialchars($post['title']) ?>
                                             </a>
                                         </h3>
@@ -1070,7 +1077,7 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                                             <?= htmlspecialchars(mb_substr(strip_tags($post['content']), 0, 75)) ?>...
                                         </p>
                                     </div>
-                                    <a href="post.php?slug=<?= htmlspecialchars($post['slug']) ?>" class="home3-post-link">
+                                    <a href="post/<?= htmlspecialchars($post['slug']) ?>" class="home3-post-link">
                                         বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i>
                                     </a>
                                 </div>
@@ -1107,17 +1114,17 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                         <?php while ($notice = mysqli_fetch_assoc($notices_query)): ?>
                             <li class="notice-item">
                                 <span class="notice-date-badge"><?= date('d F, Y', strtotime($notice['post_date'])) ?></span>
-                                <a href="page.php?slug=notices"><?= htmlspecialchars($notice['title']) ?></a>
+                                <a href="page/notices"><?= htmlspecialchars($notice['title']) ?></a>
                             </li>
                         <?php endwhile; ?>
                     <?php else: ?>
                         <li class="notice-item">
                             <span class="notice-date-badge">১০ জানুয়ারি, ২০২৬</span>
-                            <a href="#">২০২৬ শিক্ষাবর্ষের নতুন বই বিতরণ সংক্রান্ত নোটিশ</a>
+                            <a href="page/notices">২০২৬ শিক্ষাবর্ষের নতুন বই বিতরণ সংক্রান্ত নোটিশ</a>
                         </li>
                     <?php endif; ?>
                 </ul>
-                <a href="page.php?slug=notices" style="display: block; text-align: center; margin-top: 15px; font-weight: 600; color: var(--accent-orange); font-size: 0.85rem;">সকল নোটিশ দেখুন &rarr;</a>
+                <a href="page/notices" style="display: block; text-align: center; margin-top: 15px; font-weight: 600; color: var(--accent-orange); font-size: 0.85rem;">সকল নোটিশ দেখুন &rarr;</a>
             </div>
 
             <!-- ১২. সাপ্তাহিক ক্লাস রুটিন সেকশন -->
@@ -1144,7 +1151,7 @@ $latest_notice_title = ($marquee_notice && mysqli_num_rows($marquee_notice) > 0)
                     <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Government_Seal_of_Bangladesh.svg" alt="BD Government Seal">
                     <h4> মুক্তিযুদ্ধ কর্নার</h4>
                     <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 15px;">আমাদের history ও বীরত্বগাঁথার স্মারক সমৃদ্ধ বিশেষ কর্নার।</p>
-                    <a href="page.php?slug=about-us" class="btn btn-accent" style="font-size: 0.8rem; padding: 6px 15px;">ভিজিট করুন</a>
+                    <a href="page/about-us" class="btn btn-accent" style="font-size: 0.8rem; padding: 6px 15px;">ভিজিট করুন</a>
                 </div>
             </div>
 

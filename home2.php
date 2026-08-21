@@ -27,11 +27,18 @@ $downloads_result = mysqli_query($conn, "SELECT * FROM downloads WHERE file_type
 
 // Videos
 $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMIT 4");
+
+$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$base_path = rtrim(dirname($script_name), '/\\') . '/';
+if ($base_path === '//') {
+    $base_path = '/';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <base href="<?= htmlspecialchars($base_path) ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($settings['school_name'] ?? 'Dhaka Metropolitan University') ?> | Excellence in Higher Education</title>
     <!-- Google Fonts -->
@@ -1039,7 +1046,7 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
                 <ul id="nav-list">
                     <li><a href="index.php">Home</a></li>
                     <?php while($page = mysqli_fetch_assoc($pages_nav_result)): ?>
-                        <li><a href="page.php?slug=<?= htmlspecialchars($page['slug']) ?>"><?= htmlspecialchars($page['title']) ?></a></li>
+                        <li><a href="page/<?= htmlspecialchars($page['slug']) ?>"><?= htmlspecialchars($page['title']) ?></a></li>
                     <?php endwhile; ?>
                     <li><a href="library.php">Library</a></li>
                     <li><a href="contact.php">Contact Us</a></li>
@@ -1136,7 +1143,7 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
                     <div class="news-box">
                         <h4><?= htmlspecialchars($post['title']) ?></h4>
                         <span>Posted on: <?= date('F j, Y', strtotime($post['created_at'])) ?></span>
-                        <a href="post.php?slug=<?= htmlspecialchars($post['slug']) ?>">Read More &rarr;</a>
+                        <a href="post/<?= htmlspecialchars($post['slug']) ?>">Read More &rarr;</a>
                     </div>
                     <?php endwhile; ?>
                 <?php else: ?>
@@ -1212,7 +1219,7 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
                         <?php while($notice = mysqli_fetch_assoc($notices_result)): ?>
                         <li class="notice-board-item">
                             <span class="notice-label">Notice</span>
-                            <a href="page.php?slug=notices" class="notice-title"><?= htmlspecialchars($notice['title']) ?></a>
+                            <a href="page/notices" class="notice-title"><?= htmlspecialchars($notice['title']) ?></a>
                             <span class="notice-date"><?= date('M d, Y', strtotime($notice['post_date'])) ?></span>
                         </li>
                         <?php endwhile; ?>

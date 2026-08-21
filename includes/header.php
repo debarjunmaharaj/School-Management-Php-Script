@@ -12,11 +12,18 @@ $pages_nav_result = mysqli_query($conn, "SELECT title, slug FROM pages LIMIT 5")
 $is_homepage = $is_homepage ?? false;
 $page_title = $page_title ?? ($settings['school_name'] ?? 'School');
 $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
+
+$script_name = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+$base_path = rtrim(dirname($script_name), '/\\') . '/';
+if ($base_path === '//') {
+    $base_path = '/';
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= ($active_theme === 'home3.php') ? 'bn' : 'en' ?>">
 <head>
     <meta charset="UTF-8">
+    <base href="<?= htmlspecialchars($base_path) ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($page_title ?? $settings['school_name'] ?? 'School Portal') ?> - <?= htmlspecialchars($settings['school_name'] ?? 'School') ?></title>
     <link rel="icon" type="image/x-icon" href="<?= htmlspecialchars($settings['site_favicon'] ?? '') ?>">
@@ -378,11 +385,11 @@ $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
                 <nav class="theme3-nav">
                     <ul id="theme3-nav-menu">
                         <li><a href="index.php">হোম</a></li>
-                        <li><a href="page.php?slug=about-us">পরিচিতি</a></li>
-                        <li><a href="page.php?slug=teachers">শিক্ষকবৃন্দ</a></li>
-                        <li><a href="page.php?slug=notices">নোটিশ</a></li>
+                        <li><a href="page/about-us">পরিচিতি</a></li>
+                        <li><a href="page/teachers">শিক্ষকবৃন্দ</a></li>
+                        <li><a href="page/notices">নোটিশ</a></li>
                         <?php while($p = mysqli_fetch_assoc($pages_nav_result)): ?>
-                            <li><a href="page.php?slug=<?= htmlspecialchars($p['slug']) ?>"><?= htmlspecialchars($p['title']) ?></a></li>
+                            <li><a href="page/<?= htmlspecialchars($p['slug']) ?>"><?= htmlspecialchars($p['title']) ?></a></li>
                         <?php endwhile; ?>
                         <li><a href="library.php">ফটো গ্যালারি</a></li>
                         <li><a href="contact.php">যোগাযোগ</a></li>
@@ -437,7 +444,7 @@ $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
                     <ul id="theme2-nav-list">
                         <li><a href="index.php">Home</a></li>
                         <?php while($p = mysqli_fetch_assoc($pages_nav_result)): ?>
-                            <li><a href="page.php?slug=<?= htmlspecialchars($p['slug']) ?>"><?= htmlspecialchars($p['title']) ?></a></li>
+                            <li><a href="page/<?= htmlspecialchars($p['slug']) ?>"><?= htmlspecialchars($p['title']) ?></a></li>
                         <?php endwhile; ?>
                         <li><a href="library.php">Library</a></li>
                         <li><a href="contact.php">Contact Us</a></li>
@@ -483,7 +490,7 @@ $font_family_url = str_replace(' ', '+', $settings['primary_font'] ?? 'Roboto');
                 <div class="container mx-auto px-4 py-2 flex items-center space-x-6">
                     <a href="index.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Home</a>
                     <?php while($p = mysqli_fetch_assoc($pages_nav_result)): ?>
-                        <a href="page.php?slug=<?= htmlspecialchars($p['slug']) ?>" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><?= htmlspecialchars($p['title']) ?></a>
+                        <a href="page/<?= htmlspecialchars($p['slug']) ?>" class="text-white hover:bg-blue-700 px-3 py-2 rounded"><?= htmlspecialchars($p['title']) ?></a>
                     <?php endwhile; ?>
                     <a href="admission.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Admissions</a>
                     <a href="contact.php" class="text-white hover:bg-blue-700 px-3 py-2 rounded">Contact Us</a>

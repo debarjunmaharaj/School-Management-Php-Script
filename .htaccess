@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Allow direct access to real files or directories
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Single Post URL: post/my-slug -> post.php?slug=my-slug
+RewriteRule ^post/([^/]+)/?$ post.php?slug=$1 [L,QSA]
+
+# Single Page URL: page/my-slug -> page.php?slug=my-slug
+RewriteRule ^page/([^/]+)/?$ page.php?slug=$1 [L,QSA]
+
+# Research Details URL: research/123 -> research_details.php?id=123
+RewriteRule ^research/([0-9]+)/?$ research_details.php?id=$1 [L,QSA]
+</IfModule>

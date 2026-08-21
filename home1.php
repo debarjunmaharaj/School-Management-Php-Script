@@ -35,7 +35,7 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
                         <div class="border-l-4 border-blue-500 pl-4">
                             <h4 class="font-medium text-gray-800"><?= htmlspecialchars($post['title']) ?></h4>
                             <p class="text-xs text-gray-500">Posted: <?= date('F j, Y', strtotime($post['created_at'])) ?></p>
-                            <a href="post.php?slug=<?= htmlspecialchars($post['slug']) ?>" class="text-sm text-blue-600 hover:underline">Read More →</a>
+                            <a href="post/<?= htmlspecialchars($post['slug']) ?>" class="text-sm text-blue-600 hover:underline">Read More →</a>
                         </div>
                         <?php endwhile; ?>
                     </div>
@@ -87,6 +87,61 @@ $videos_result = mysqli_query($conn, "SELECT * FROM videos ORDER BY id DESC LIMI
                         <p class="text-xs text-gray-500 mt-1"><?= htmlspecialchars($teacher['experience']) ?></p>
                     </div>
                     <?php endwhile; ?>
+                </div>
+            </section>
+
+            <!-- Latest News & Blog Posts Grid Section -->
+            <section class="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-gray-100">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Latest News & Blog Posts</h2>
+                        <p class="text-xs text-gray-500 mt-1">Stay updated with our latest announcements, academic achievements, and campus stories</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <?php 
+                    $posts_grid_res = mysqli_query($conn, "SELECT * FROM posts ORDER BY created_at DESC LIMIT 3");
+                    if ($posts_grid_res && mysqli_num_rows($posts_grid_res) > 0): 
+                        while($p = mysqli_fetch_assoc($posts_grid_res)): 
+                    ?>
+                        <article class="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 flex flex-col justify-between hover:shadow-md transition-shadow group">
+                            <div>
+                                <div class="h-44 bg-blue-50 overflow-hidden relative">
+                                    <?php if (!empty($p['image_url'])): ?>
+                                        <img src="<?= htmlspecialchars($p['image_url']) ?>" alt="<?= htmlspecialchars($p['title']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                    <?php else: ?>
+                                        <div class="w-full h-full flex items-center justify-center text-blue-300 text-5xl">
+                                            <i class="ri-newspaper-line"></i>
+                                        </div>
+                                    <?php endif; ?>
+                                    <span class="absolute top-3 left-3 bg-blue-800/90 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                        <?= date('M d, Y', strtotime($p['created_at'])) ?>
+                                    </span>
+                                </div>
+                                <div class="p-5">
+                                    <h3 class="font-bold text-gray-900 text-base leading-snug line-clamp-2 group-hover:text-blue-700 transition-colors">
+                                        <a href="post/<?= htmlspecialchars($p['slug']) ?>">
+                                            <?= htmlspecialchars($p['title']) ?>
+                                        </a>
+                                    </h3>
+                                    <p class="text-xs text-gray-600 mt-2 line-clamp-3 leading-relaxed">
+                                        <?= htmlspecialchars(mb_substr(strip_tags($p['content']), 0, 110)) ?>...
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="px-5 pb-5 pt-2">
+                                <a href="post/<?= htmlspecialchars($p['slug']) ?>" class="text-xs font-bold text-blue-600 hover:text-blue-800 inline-flex items-center gap-1">
+                                    Read Article <i class="ri-arrow-right-line"></i>
+                                </a>
+                            </div>
+                        </article>
+                    <?php 
+                        endwhile; 
+                    else: 
+                    ?>
+                        <p class="text-gray-500 col-span-full text-center py-6">No news posts available at the moment.</p>
+                    <?php endif; ?>
                 </div>
             </section>
 

@@ -193,7 +193,7 @@ $pages_result = $conn->query("SELECT id, title, slug FROM pages ORDER BY title A
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
                                 <span class="font-mono text-xs text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2.5 py-1 rounded-lg inline-flex items-center gap-1.5">
                                     <i class="ri-link text-indigo-400"></i>
-                                    /page.php?slug=<?= htmlspecialchars($page['slug']) ?>
+                                    /page/<?= htmlspecialchars($page['slug']) ?>
                                 </span>
                             </td>
                             <!-- Actions Panel -->
@@ -201,7 +201,7 @@ $pages_result = $conn->query("SELECT id, title, slug FROM pages ORDER BY title A
                                 <div class="flex items-center justify-end gap-3">
                                     <!-- View Page -->
                                     <a 
-                                        href="../page.php?slug=<?= htmlspecialchars($page['slug']) ?>" 
+                                        href="../page/<?= htmlspecialchars($page['slug']) ?>" 
                                         target="_blank" 
                                         class="p-2 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg transition inline-flex items-center justify-center border border-slate-200/50"
                                         title="View Page on Website"
